@@ -7,7 +7,7 @@ const state = {
   events: []
 };
 
-/** Updates state with artists from API */
+//GET THE VALUES IN THE API
 async function getEvents() {
   try {
     const response = await fetch(API_URL);
@@ -18,7 +18,7 @@ async function getEvents() {
   }
 }
 
-/** Asks the API to create a new artist based on the given `artist` */
+//ADDING AN EVENT
 async function addEvents(event) {
   try {
     const response = await fetch(API_URL, {
@@ -37,7 +37,7 @@ async function addEvents(event) {
     console.error(error);
   }
 }
-
+//DELETE FUNCTION
 async function deleteEvents(event) {
   try {
     const response = await fetch(`${API_URL}/${event.id}`, {
@@ -58,9 +58,7 @@ async function deleteEvents(event) {
   }
 }
 
-// === Render ===
-
-/** Renders artists from state */
+//RENDER
 function renderEvents() {
   const eventList = document.querySelector("#events");
 
@@ -70,11 +68,12 @@ function renderEvents() {
   }
 
   const eventCards = state.events.map((event) => {
-    const formattedDate = new Date(event.date).toLocaleDateString("en-US", {
+    const formattedDate = new Date(event.date).toLocaleTimeString("en-US", {
       weekday: "long",
       year: "numeric",
       month: "long",
-      day: "numeric"
+      day: "numeric",
+      time: "long"
     });
 
     const card = document.createElement("li");
@@ -108,6 +107,8 @@ async function render() {
 // === Script ===
 
 render();
+
+//NEW EVENT
 
 const form = document.querySelector("form");
 form.addEventListener("submit", async (event) => {
